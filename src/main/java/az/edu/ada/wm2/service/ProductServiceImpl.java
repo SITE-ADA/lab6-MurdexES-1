@@ -1,7 +1,7 @@
-package az.edu.ada.wm2.lab6.service;
+package az.edu.ada.wm2.service;
 
-import az.edu.ada.wm2.lab6.model.Product;
-import az.edu.ada.wm2.lab6.repository.ProductRepository;
+import az.edu.ada.wm2.model.Product;
+import az.edu.ada.wm2.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
