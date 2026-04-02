@@ -1,6 +1,11 @@
 package az.edu.ada.wm2.service;
 
+import az.edu.ada.wm2.model.Category;
 import az.edu.ada.wm2.model.Product;
+import az.edu.ada.wm2.model.dto.ProductRequestDto;
+import az.edu.ada.wm2.model.dto.ProductResponseDto;
+import az.edu.ada.wm2.model.mapper.ProductMapper;
+import az.edu.ada.wm2.repository.CategoryRepository;
 import az.edu.ada.wm2.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,64 +13,100 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.UUID;
 
 @Service
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
+    private final ProductMapper productMapper;
 
     @Autowired
-    public ProductServiceImpl(ProductRepository productRepository) {
+    public ProductServiceImpl(
+            ProductRepository productRepository,
+            CategoryRepository categoryRepository,
+            ProductMapper productMapper
+    ) {
         this.productRepository = productRepository;
+        this.categoryRepository = categoryRepository;
+        this.productMapper = productMapper;
     }
 
     @Override
-    public Product createProduct(Product product) {
-        return productRepository.save(product);
+    public ProductResponseDto createProduct(ProductRequestDto product) {
+        validatePrice(product.getPrice());
+
+        Product entity = productMapper.toEntity(product);
+        entity.setCategories(getCategories(product.getCategoryIds()));
+
+        Product savedProduct = productRepository.save(entity);
+        return productMapper.toResponseDto(savedProduct);
     }
 
     @Override
-    public Product getProductById(UUID id) {
-        return productRepository.findById(id)
+    public ProductResponseDto getProductById(UUID id) {
+        Product product = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+
+        return productMapper.toResponseDto(product);
     }
 
     @Override
-    public List<Product> getAllProducts() {
-        return productRepository.findAll();
+    public List<ProductResponseDto> getAllProducts() {
+        return productRepository.findAll().stream()
+                .map(productMapper::toResponseDto)
+                .toList();
     }
 
     @Override
-    public Product updateProduct(UUID id, Product product) {
-        if (!productRepository.existsById(id)) {
-            throw new RuntimeException("Product not found with id: " + id);
-        }
-        product.setId(id);
-        return productRepository.save(product);
+    public ProductResponseDto updateProduct(UUID id, ProductRequestDto product) {
+        validatePrice(product.getPrice());
+
+        Product existingProduct = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+
+        existingProduct.setProductName(product.getProductName());
+        existingProduct.setPrice(product.getPrice());
+        existingProduct.setExpirationDate(product.getExpirationDate());
+        existingProduct.setCategories(getCategories(product.getCategoryIds()));
+
+        Product savedProduct = productRepository.save(existingProduct);
+        return productMapper.toResponseDto(savedProduct);
     }
 
     @Override
     public void deleteProduct(UUID id) {
-        if (!productRepository.existsById(id)) {
-            throw new RuntimeException("Product not found with id: " + id);
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+
+        productRepository.delete(product);
+    }
+
+    @Override
+    public List<ProductResponseDto> getProductsExpiringBefore(LocalDate date) {
+        return productRepository.findByExpirationDateBefore(date).stream()
+                .map(productMapper::toResponseDto)
+                .toList();
+    }
+
+    @Override
+    public List<ProductResponseDto> getProductsByPriceRange(BigDecimal minPrice, BigDecimal maxPrice) {
+        return productRepository.findByPriceBetween(minPrice, maxPrice).stream()
+                .map(productMapper::toResponseDto)
+                .toList();
+    }
+
+    private List<Category> getCategories(List<UUID> categoryIds) {
+        if (categoryIds == null || categoryIds.isEmpty()) {
+            return List.of();
         }
-        productRepository.deleteById(id);
+
+        return categoryRepository.findAllById(categoryIds);
     }
 
-    @Override
-    public List<Product> getProductsExpiringBefore(LocalDate date) {
-        return productRepository.findAll().stream()
-                .filter(product -> product.getExpirationDate() != null && 
-                        product.getExpirationDate().isBefore(date))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Product> getProductsByPriceRange(BigDecimal minPrice, BigDecimal maxPrice) {
-        return productRepository.findAll().stream()
-                .filter(product -> product.getPrice().compareTo(minPrice) >= 0 && 
-                        product.getPrice().compareTo(maxPrice) <= 0)
-                .collect(Collectors.toList());
+    private void validatePrice(BigDecimal price) {
+        if (price == null || price.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Price must be greater than zero");
+        }
     }
 }
