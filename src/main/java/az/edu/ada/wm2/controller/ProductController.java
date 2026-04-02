@@ -1,8 +1,8 @@
 package az.edu.ada.wm2.controller;
 
-import az.edu.ada.wm2.model.dto.ProductRequestDto;
-import az.edu.ada.wm2.model.dto.ProductResponseDto;
-import az.edu.ada.wm2.service.ProductService;
+import az.edu.ada.wm2.lab6.model.dto.ProductRequestDto;
+import az.edu.ada.wm2.lab6.model.dto.ProductResponseDto;
+import az.edu.ada.wm2.lab6.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

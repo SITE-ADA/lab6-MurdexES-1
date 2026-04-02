@@ -1,0 +1,132 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "org.springframework.boot",
+    "module": "spring-boot-starter-jackson-test",
+    "version": "4.0.2",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "9.3.0"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-starter-jackson",
+          "version": {
+            "requires": "4.0.2"
+          }
+        },
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-starter-test",
+          "version": {
+            "requires": "4.0.2"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "spring-boot-starter-jackson-test-4.0.2.jar",
+          "url": "spring-boot-starter-jackson-test-4.0.2.jar",
+          "size": 2001,
+          "sha512": "f60f410227b497fb224ccbd681042e09c20e6248377a1595aae46de5e592309ab20a52b2bf041f50b8941381441ddc85afcb0764e31956620bd40aaf2c1efd10",
+          "sha256": "1cb4e3fe34a5c954fa670c488b8f1df50e18b231adca49aaba90915a78c36018",
+          "sha1": "5e0c3509e92f7fb33b0cffe40e2cae7971ccb31d",
+          "md5": "d3efae1b78a4efd7a4b8fcfeb991ca0f"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-starter-jackson",
+          "version": {
+            "requires": "4.0.2"
+          }
+        },
+        {
+          "group": "org.springframework.boot",
+          "module": "spring-boot-starter-test",
+          "version": {
+            "requires": "4.0.2"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "spring-boot-starter-jackson-test-4.0.2.jar",
+          "url": "spring-boot-starter-jackson-test-4.0.2.jar",
+          "size": 2001,
+          "sha512": "f60f410227b497fb224ccbd681042e09c20e6248377a1595aae46de5e592309ab20a52b2bf041f50b8941381441ddc85afcb0764e31956620bd40aaf2c1efd10",
+          "sha256": "1cb4e3fe34a5c954fa670c488b8f1df50e18b231adca49aaba90915a78c36018",
+          "sha1": "5e0c3509e92f7fb33b0cffe40e2cae7971ccb31d",
+          "md5": "d3efae1b78a4efd7a4b8fcfeb991ca0f"
+        }
+      ]
+    },
+    {
+      "name": "javadocElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "javadoc",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "spring-boot-starter-jackson-test-4.0.2-javadoc.jar",
+          "url": "spring-boot-starter-jackson-test-4.0.2-javadoc.jar",
+          "size": 2001,
+          "sha512": "f60f410227b497fb224ccbd681042e09c20e6248377a1595aae46de5e592309ab20a52b2bf041f50b8941381441ddc85afcb0764e31956620bd40aaf2c1efd10",
+          "sha256": "1cb4e3fe34a5c954fa670c488b8f1df50e18b231adca49aaba90915a78c36018",
+          "sha1": "5e0c3509e92f7fb33b0cffe40e2cae7971ccb31d",
+          "md5": "d3efae1b78a4efd7a4b8fcfeb991ca0f"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "spring-boot-starter-jackson-test-4.0.2-sources.jar",
+          "url": "spring-boot-starter-jackson-test-4.0.2-sources.jar",
+          "size": 2001,
+          "sha512": "f60f410227b497fb224ccbd681042e09c20e6248377a1595aae46de5e592309ab20a52b2bf041f50b8941381441ddc85afcb0764e31956620bd40aaf2c1efd10",
+          "sha256": "1cb4e3fe34a5c954fa670c488b8f1df50e18b231adca49aaba90915a78c36018",
+          "sha1": "5e0c3509e92f7fb33b0cffe40e2cae7971ccb31d",
+          "md5": "d3efae1b78a4efd7a4b8fcfeb991ca0f"
+        }
+      ]
+    }
+  ]
+}
